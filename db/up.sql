@@ -4,7 +4,7 @@ CREATE TABLE Event
   name VARCHAR(128) NOT NULL,
   promotion VARCHAR(64) NOT NULL,
   date DATE NOT NULL,
-  CONSTRAINT PK_Event PRIMARY KEY id,
+  CONSTRAINT PK_Event PRIMARY KEY (id),
   CONSTRAINT UQ_Name_Promotion
     UNIQUE (name, promotion)
 );
@@ -16,16 +16,16 @@ CREATE TABLE Match
   type VARCHAR(128) NOT NULL,
   workers TEXT NOT NULL,
   CONSTRAINT PK_Match 
-    PRIMARY KEY id,
+    PRIMARY KEY (id),
   CONSTRAINT FK_Match_Event 
-    FOREIGN KEY event_id REFERENCES Event(id) 
-    ON DELETE CASCADE,
+    FOREIGN KEY (event_id) REFERENCES Event(id) 
+    ON DELETE CASCADE
 );
 
 CREATE TABLE Language (
   code CHAR(3),
   CONSTRAINT PK_Language
-    PRIMARY KEY code,
+    PRIMARY KEY (code)
 );
 
 CREATE TABLE Match_Desc
@@ -35,14 +35,14 @@ CREATE TABLE Match_Desc
   description TEXT NOT NULL,
   language_code CHAR(3) NOT NULL,
   CONSTRAINT PK_MatchDesc 
-    PRIMARY KEY id,
+    PRIMARY KEY (id),
   CONSTRAINT UQ_Match_Language
-    UNIQUE (match_id, language),
+    UNIQUE (match_id, language_code),
   CONSTRAINT FK_Match_MatchDesc
-    FOREIGN KEY match_id REFERENCES Match(id) ON DELETE CASCADE,
+    FOREIGN KEY (match_id) REFERENCES Match(id) ON DELETE CASCADE,
   CONSTRAINT FK_Language_MatchDesc
-    FOREIGN KEY language_code REFERENCES Language(code) ON DELETE CASCADE
-)
+    FOREIGN KEY (language_code) REFERENCES Language(code) ON DELETE CASCADE
+);
 
 CREATE TABLE Rating 
 (
@@ -53,10 +53,10 @@ CREATE TABLE Rating
   score NUMERIC(3, 1) NOT NULL,
   opinion TEXT,
   CONSTRAINT PK_Rating
-    PRIMARY KEY id,
+    PRIMARY KEY (id),
   CONSTRAINT FK_Rating_Match
-    FOREIGN KEY match_id REFERENCES Match(id) 
+    FOREIGN KEY (match_id) REFERENCES Match(id) 
     ON DELETE CASCADE,
   CONSTRAINT FK_Language_Rating 
-    FOREIGN KEY language_code REFERENCES Language(code),
+    FOREIGN KEY (language_code) REFERENCES Language(code) ON DELETE CASCADE
 );
