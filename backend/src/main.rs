@@ -1,5 +1,6 @@
 use rocket::{launch, routes};
 
+mod database;
 mod endpoints;
 mod entities;
 mod pagination;

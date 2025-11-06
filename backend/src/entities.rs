@@ -5,12 +5,12 @@ use diesel::{
     deserialize::{self, FromSql, FromSqlRow},
     expression::AsExpression,
     prelude::{Insertable, Queryable},
+    serialize::ToSql,
     sql_types::VarChar,
 };
 
 use crate::schema::{event, match_, match_desc, rating};
 
-#[repr(C)]
 #[derive(AsExpression, Clone, Debug, Copy, FromSqlRow)]
 #[diesel(sql_type = VarChar)]
 pub enum Language {
@@ -34,6 +34,23 @@ where
     }
 }
 
+// Implement conversion from Language enum to DB type for inserting new matches or ratings
+impl<DB> ToSql<VarChar, DB> for Language
+where
+    DB: Backend,
+    str: ToSql<VarChar, DB>,
+{
+    fn to_sql<'b>(
+        &'b self,
+        out: &mut diesel::serialize::Output<'b, '_, DB>,
+    ) -> diesel::serialize::Result {
+        match self {
+            Language::French => "FRE".to_sql(out),
+            Language::English => "ENG".to_sql(out),
+        }
+    }
+}
+
 #[derive(Insertable, Queryable)]
 #[diesel(table_name = event)]
 pub struct Event {
@@ -45,6 +62,7 @@ pub struct Event {
 
 #[derive(Insertable, Queryable)]
 #[diesel(table_name = match_)]
+#[diesel(belongs_to(Event, foreign_key = event_id))]
 pub struct Match {
     id: i32,
     event_id: i32,
@@ -52,6 +70,7 @@ pub struct Match {
 
 #[derive(Insertable, Queryable)]
 #[diesel(table_name = match_desc)]
+#[diesel(belongs_to(Match, foreign_key = match_id))]
 pub struct MatchDesc {
     id: i32,
     match_id: i32,
@@ -61,11 +80,12 @@ pub struct MatchDesc {
 
 #[derive(Insertable, Queryable)]
 #[diesel(table_name = rating)]
+#[diesel(belongs_to(Match, foreign_key = match_id))]
 pub struct Rating {
     id: i32,
     match_id: i32,
     language_code: Language,
     username: String,
     score: BigDecimal,
-    opinion: String,
+    opinion: Option<String>,
 }
