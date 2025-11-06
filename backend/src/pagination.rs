@@ -23,6 +23,13 @@ impl<T> Paginate for T {
 
 const DEFAULT_PER_PAGE: i64 = 10;
 
+// intended for user display
+#[derive(Debug, Clone)]
+pub struct Page<T> {
+    pub page: i64,
+    pub items: Vec<T>,
+}
+
 #[derive(Debug, Clone, Copy, QueryId)]
 pub struct Paginated<T> {
     query: T,
@@ -40,7 +47,7 @@ impl<T> Paginated<T> {
         }
     }
 
-    pub fn load_and_count_pages<'a, U>(self, conn: &mut PgConnection) -> QueryResult<(Vec<U>, i64)>
+    pub fn load_and_count_pages<'a, U>(self, conn: &mut PgConnection) -> QueryResult<Page<U>>
     where
         Self: LoadQuery<'a, PgConnection, (U, i64)>,
     {
@@ -49,7 +56,10 @@ impl<T> Paginated<T> {
         let total = results.first().map(|x| x.1).unwrap_or(0);
         let records = results.into_iter().map(|x| x.0).collect();
         let total_pages = (total as f64 / per_page as f64).ceil() as i64;
-        Ok((records, total_pages))
+        Ok(Page {
+            page: total_pages,
+            items: records,
+        })
     }
 }
 

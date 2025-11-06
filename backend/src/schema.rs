@@ -22,7 +22,7 @@ diesel::table! {
     #[sql_name = "match"]
     match_ (id) {
         id -> Int4,
-        event_id -> Nullable<Int4>,
+        event_id -> Int4,
         workers -> Text,
     }
 }

@@ -1,11 +1,11 @@
 [package]
-name = "backend"
+name = "ratematch-srv"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
 bigdecimal = "0.4.9"
 chrono = "0.4.42"
-diesel = { version = "2.3.3", features = ["postgres", "numeric", "postgres_backend", "chrono"] }
+diesel = { version = "2.3.3", features = ["postgres", "numeric", "r2d2", "postgres_backend", "chrono"] }
 dotenvy = "0.15.7"
 rocket = "0.5.1"

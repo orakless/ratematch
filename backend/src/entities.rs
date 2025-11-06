@@ -66,6 +66,7 @@ pub struct Event {
 pub struct Match {
     id: i32,
     event_id: i32,
+    workers: String,
 }
 
 #[derive(Insertable, Queryable)]
@@ -116,6 +117,10 @@ impl Match {
     pub fn event_id(&self) -> i32 {
         self.event_id
     }
+
+    pub fn workers(&self) -> &str {
+        &self.workers
+    }
 }
 
 impl MatchDesc {
@@ -160,4 +165,16 @@ impl Rating {
     pub fn opinion(&self) -> &Option<String> {
         &self.opinion
     }
+}
+
+// Struct without ID, this way it will be possible to
+// insert new ratings in the database
+#[derive(Insertable)]
+#[diesel(table_name = rating)]
+pub struct NewRating {
+    match_id: i32,
+    language_code: Language,
+    username: String,
+    score: BigDecimal,
+    opinion: Option<String>,
 }

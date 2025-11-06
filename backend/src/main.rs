@@ -1,10 +1,11 @@
 use rocket::{launch, routes};
 
-mod database;
-mod endpoints;
-mod entities;
-mod pagination;
-mod schema;
+pub mod database;
+pub mod endpoints;
+pub mod entities;
+pub mod errors;
+pub mod pagination;
+pub mod schema;
 
 #[launch]
 fn rocket() -> _ {

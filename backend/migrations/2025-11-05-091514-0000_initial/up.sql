@@ -12,7 +12,7 @@ CREATE TABLE Event
 CREATE TABLE Match 
 (
   id SERIAL,
-  event_id INTEGER,
+  event_id INTEGER NOT NULL,
   workers TEXT NOT NULL,
   CONSTRAINT PK_Match 
     PRIMARY KEY (id),
