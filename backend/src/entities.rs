@@ -89,3 +89,75 @@ pub struct Rating {
     score: BigDecimal,
     opinion: Option<String>,
 }
+
+impl Event {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+
+    pub fn name(&self) -> &str {
+        &self.name
+    }
+
+    pub fn promotion(&self) -> &str {
+        &self.promotion
+    }
+
+    pub fn date(&self) -> &NaiveDate {
+        &self.date
+    }
+}
+
+impl Match {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+
+    pub fn event_id(&self) -> i32 {
+        self.event_id
+    }
+}
+
+impl MatchDesc {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+
+    pub fn match_id(&self) -> i32 {
+        self.match_id
+    }
+
+    pub fn language_code(&self) -> Language {
+        self.language_code
+    }
+
+    pub fn description(&self) -> &str {
+        &self.description
+    }
+}
+
+impl Rating {
+    pub fn id(&self) -> i32 {
+        self.id
+    }
+
+    pub fn match_id(&self) -> i32 {
+        self.match_id
+    }
+
+    pub fn language_code(&self) -> Language {
+        self.language_code
+    }
+
+    pub fn username(&self) -> &str {
+        &self.username
+    }
+
+    pub fn score(&self) -> &BigDecimal {
+        &self.score
+    }
+
+    pub fn opinion(&self) -> &Option<String> {
+        &self.opinion
+    }
+}
