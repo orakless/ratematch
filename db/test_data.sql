@@ -2,7 +2,7 @@ INSERT INTO Language (code) VALUES ('FRE'), ('ENG');
 
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -11,7 +11,7 @@ BEGIN
   RETURNING id INTO event_id;
 
   INSERT INTO Match (event_id, workers) VALUES 
-    (event_id, "Mercedes Moné vs. Jamie Hayter")
+    (event_id, 'Mercedes Moné vs. Jamie Hayter')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -19,15 +19,15 @@ BEGIN
     (match_id, 'Finale du tournoi féminin 2025 de la Fondation Owen Hart sans chance pour le titre', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'FTR vs. Daniel Garcia, Nigel McGinness'),
+    (event_id, 'FTR vs. Daniel Garcia, Nigel McGinness')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'Tag Team Match', 'ENG'),
-    (match_id, 'Match en équipe de deux', 'FRE')
+    (match_id, 'Match en équipe de deux', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Ricochet vs. Mark Briscoe'),
+    (event_id, 'Ricochet vs. Mark Briscoe')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -35,7 +35,7 @@ BEGIN
     (match_id, 'Match du brancard', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'The Hurt Syndicate vs. The Sons Of Texas'),
+    (event_id, 'The Hurt Syndicate vs. The Sons Of Texas')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -43,7 +43,7 @@ BEGIN
     (match_id, 'Match pour le titre de champion du monde en équipe AEW masculin', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Kazuchika Okada vs. Mike Bailey'),
+    (event_id, 'Kazuchika Okada vs. Mike Bailey')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -51,15 +51,15 @@ BEGIN
     (match_id, 'Match pour le titre de champion continental AEW', 'FRE');
 
   INSERT INTO Match (event_id,  workers) VALUES
-    (event_id, 'Toni Storm vs. Mina Shirakawa'),
+    (event_id, 'Toni Storm vs. Mina Shirakawa')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'AEW Women''s World Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de championne du monde');
+    (match_id, 'Match pour le titre de championne du monde', 'FRE');
 
   INSERT INTO Match (event_id,  workers) VALUES
-    (event_id, 'Kenny Omega, Swerve Strickland, The Opps, Willow Nightingale vs. Death Riders, The Young Bucks'),
+    (event_id, 'Kenny Omega, Swerve Strickland, The Opps, Willow Nightingale vs. Death Riders, The Young Bucks')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -67,25 +67,25 @@ BEGIN
     (match_id, 'Match Anarchie dans l''Arène', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'The Don Callis Family vs. Paragon'),
+    (event_id, 'The Don Callis Family vs. Paragon')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (event_id, 'Six Man Tag Team Match', 'ENG'),
-    (event_id, 'Match à six personnes en équipes de trois', 'FRE');
+    (match_id, 'Six Man Tag Team Match', 'ENG'),
+    (match_id, 'Match à six personnes en équipes de trois', 'FRE');
 
   INSERT INTO Match (event_id,  workers) VALUES
-    (event_id, 'Owen Hart Foundation 2025 Men''s Tournament Final Match', '«Hangman» Adam Page vs. Will Ospreay');
+    (event_id, '«Hangman» Adam Page vs. Will Ospreay')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (event_id, 'Owen Hart Foundation 2025 Men''s Tournament Final Match', 'ENG'),
-    (event_id, 'Finale du tournoi masculin 2025 de la Fondation Owen Hart', 'FRE');
+    (match_id, 'Owen Hart Foundation 2025 Men''s Tournament Final Match', 'ENG'),
+    (match_id, 'Finale du tournoi masculin 2025 de la Fondation Owen Hart', 'FRE');
 END $$;
 
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -94,15 +94,15 @@ BEGIN
     RETURNING id INTO event_id;
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'The Opps vs. Death Riders, Gabe Kidd'),
+    (event_id, 'The Opps vs. Death Riders, Gabe Kidd')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (match_id, 'AEW Men''s World Trios Title Match', 'ENG')
+    (match_id, 'AEW Men''s World Trios Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion du monde masculin AEW en trio', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'MJF vs. Anthony Bowens vs. Bandido vs. Brody King vs. Josh Alexander vs. Juice Robinson vs. Konosuke Takeshita vs. Kota Ibushi vs. Mark Briscoe vs. Max Caster vs. Mistico vs. Ricochet vs. Roderick Strong vs. The Beast Mortos'),
+    (event_id, 'MJF vs. Anthony Bowens vs. Bandido vs. Brody King vs. Josh Alexander vs. Juice Robinson vs. Konosuke Takeshita vs. Kota Ibushi vs. Mark Briscoe vs. Max Caster vs. Mistico vs. Ricochet vs. Roderick Strong vs. The Beast Mortos')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -110,7 +110,7 @@ BEGIN
     (match_id, 'Match "Épreuve du Casino"', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Dustin Rhodes vs. Daniel Garcia vs. Kyle Fletcher vs. Sammy Guevara'),
+    (event_id, 'Dustin Rhodes vs. Daniel Garcia vs. Kyle Fletcher vs. Sammy Guevara')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -118,15 +118,15 @@ BEGIN
     (match_id, 'Match à 4 pour le titre de champion AEW TNT', 'FRE');
   
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Tag Team Match', 'Swerve Strickland, Will Ospreay vs. The Young Bucks'),
+    (event_id, 'Swerve Strickland, Will Ospreay vs. The Young Bucks')
   RETURNING id INTO match_id;
   
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Tag Team Match', 'ENG'),
-    (match_id, 'Match en équipe de deux', 'FR');
+    (match_id, 'Match en équipe de deux', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Athena vs. Alex Windsor vs. Julia Hart vs. Kris Statlander vs. Megan Bayne vs. Mina Shirakawa vs. Queen Aminata vs. Syuri vs. Tay Melo vs. Thekla vs. Thunder Rosa vs. Willow Nightingale'),
+    (event_id, 'Athena vs. Alex Windsor vs. Julia Hart vs. Kris Statlander vs. Megan Bayne vs. Mina Shirakawa vs. Queen Aminata vs. Syuri vs. Tay Melo vs. Thekla vs. Thunder Rosa vs. Willow Nightingale')
   RETURNING id INTO match_id;
   
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -134,42 +134,42 @@ BEGIN
     (match_id, 'Match "Épreuve du Casino"', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'The Hurt Syndicate vs. JetSpeed'),
+    (event_id, 'The Hurt Syndicate vs. JetSpeed')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (match_id, 'AEW Men''s World Tag Team Title Match', 'ENG')
+    (match_id, 'AEW Men''s World Tag Team Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion du monde masculin AEW en duo', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id,  'Toni Storm vs. Mercedes Moné'),
+    (event_id,  'Toni Storm vs. Mercedes Moné')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'AEW Women''s World Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de championne du monde AEW', 'FRE')
+    (match_id, 'Match pour le titre de championne du monde AEW', 'FRE');
   
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'AEW Unified Title / AEW Continental Title / AEW International Title Winner Takes All Match', 'Kazuchika Okada vs. Kenny Omega'),
+    (event_id, 'Kazuchika Okada vs. Kenny Omega')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'AEW Unified Title / AEW Continental Title / AEW International Title Winner Takes All Match', 'ENG'),
-    (match_id, 'Match pour les titres de champion unifié, continental et international AEW', 'FRE')
+    (match_id, 'Match pour les titres de champion unifié, continental et international AEW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'AEW Men''s World Title Texas Death Match', '«Hangman» Adam Page vs. Jon Moxley');
+    (event_id, '«Hangman» Adam Page vs. Jon Moxley')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'AEW Men''s World Title Texas Death Match', 'ENG'),
-    (match_id, 'Match à mort du Texas pour le titre de champion du monde AEW', 'FRE')
+    (match_id, 'Match à mort du Texas pour le titre de champion du monde AEW', 'FRE');
 
 END $$;
 
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -183,14 +183,14 @@ BEGIN
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Tag Team Match', 'ENG'),
-    (match_id, 'Match en équipes de 2', 'FRE')
+    (match_id, 'Match en équipes de 2', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Kyle Fletcher vs. Hiromu Takahashi')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (match_id, 'ENG'),
+    (match_id, 'AEW TNT Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion AEW TNT', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
@@ -206,7 +206,7 @@ BEGIN
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
-    (match_id, 'IWGP World Heavyweight Title Match', 'ENG')
+    (match_id, 'IWGP World Heavyweight Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion du monde poids-lourd IWGP', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
@@ -226,7 +226,7 @@ BEGIN
     (match_id, 'Match pour les titres de champion unifié, continental et international AEW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'AEW Women''s World Title Match', 'Toni Storm vs. Athena')
+    (event_id, 'Toni Storm vs. Athena')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -234,7 +234,7 @@ BEGIN
     (match_id, 'Match pour le titre de championne de monde AEW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'AEW Men''s World Title', '«Hangman» Adam Page vs. MJF')
+    (event_id, '«Hangman» Adam Page vs. MJF')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -242,7 +242,7 @@ BEGIN
     (match_id, 'Match pour le titre de champion du monde AEW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Darby Allin, Golden Lovers, Hiroshi Tanahashi, Will Ospreay vs. Death Riders, The Young Bucks, Gabe Kidd');
+    (event_id, 'Darby Allin, Golden Lovers, Hiroshi Tanahashi, Will Ospreay vs. Death Riders, The Young Bucks, Gabe Kidd')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -252,7 +252,7 @@ END $$;
     
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -260,8 +260,8 @@ BEGIN
     ('WWE Wrestlemania 41 - Night 1', 'World Wrestling Entertainment', '2025-04-19')
   RETURNING id INTO event_id;
 
-  INSERT INTO Match (event_id, workers) VALUES 
-    (event_id, 'Jey Uso vs. Gunther'),
+  INSERT INTO Match (event_id, workers) VALUES
+    (event_id, 'Jey Uso vs. Gunther')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -269,7 +269,7 @@ BEGIN
     (match_id, 'Match pour le titre de champion du monde poids-lourd WWE', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'The New Day vs. The War Raiders'),
+    (event_id, 'The New Day vs. The War Raiders')
   RETURNING id INTO match_id;
   
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -277,7 +277,7 @@ BEGIN
     (match_id, 'Match pour le titre de champions du monde WWE en duo', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Jade Cargill vs. Naomi'),
+    (event_id, 'Jade Cargill vs. Naomi')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -285,15 +285,15 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Jacob Fatu vs. LA Knight'),
+    (event_id, 'Jacob Fatu vs. LA Knight')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'WWE Men''s United States Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de champion des États-Unis d''Amérique WWE');
+    (match_id, 'Match pour le titre de champion des États-Unis d''Amérique WWE', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'El Grande Americano vs. Rey Fenix'),
+    (event_id, 'El Grande Americano vs. Rey Fenix')
   RETURNING id INTO match_id;
   
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -301,15 +301,15 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Tiffany Stratton vs. Charlotte Flair'),
+    (event_id, 'Tiffany Stratton vs. Charlotte Flair')
   RETURNING id INTO match_id;
   
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'WWE Women''s Title', 'ENG'),
-    (match_id, 'Match pour le titre de championne WWE');
+    (match_id, 'Match pour le titre de championne WWE', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Seth Rollins vs. CM Punk vs. Roman Reigns');
+    (event_id, 'Seth Rollins vs. CM Punk vs. Roman Reigns')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -320,7 +320,7 @@ END $$;
     
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -329,15 +329,15 @@ BEGIN
   RETURNING id INTO event_id;
   
   INSERT INTO Match (event_id, workers) VALUES
-    VALUES (event_id, 'WWE Women''s World Title Triple Threat Match', 'IYO SKY vs. Bianca Belair vs. Rhea Ripley')
-  RETURNING id INTO event_id;
+    (event_id, 'IYO SKY vs. Bianca Belair vs. Rhea Ripley')
+  RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'WWE Women''s World Title Triple Threat Match', 'ENG'),
     (match_id, 'Match Triple Menace pour le titre de championne du monde WWE', 'FRE');
    
   INSERT INTO Match (event_id, workers) VALUES
-      (event_id, 'Drew McIntyre vs. Damian Priest')
+    (event_id, 'Drew McIntyre vs. Damian Priest')
   RETURNING id INTO match_id;
     
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -345,7 +345,7 @@ BEGIN
     (match_id, 'Bagarre de rue de la Cité des Pêchés', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-     (event_id, 'Dominik Mysterio vs. Bron Breakker vs. Finn Balor vs. Penta')
+    (event_id, 'Dominik Mysterio vs. Bron Breakker vs. Finn Balor vs. Penta')
   RETURNING id INTO match_id;
      
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -361,7 +361,7 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
    
   INSERT INTO Match (event_id, workers) VALUES
-     (event_id, 'Singles Match', 'Logan Paul vs. AJ Styles')
+     (event_id, 'Logan Paul vs. AJ Styles')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -374,7 +374,7 @@ BEGIN
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'WWE Women''s Tag Team Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de championnes du monde WWE en duo')
+    (match_id, 'Match pour le titre de championnes du monde WWE en duo', 'FRE');
      
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'John Cena vs. Cody Rhodes')
@@ -387,7 +387,7 @@ END $$;
     
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date) VALUES 
@@ -400,7 +400,7 @@ BEGIN
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Pre-Show Rumble Match', 'ENG'),
-    (match_id, 'Bataille d''avant-spectacle ', 'FRE')
+    (match_id, 'Bataille d''avant-spectacle ', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Hina vs. Ranna Yagami')
@@ -411,7 +411,7 @@ BEGIN
     (match_id, 'Match pour le titre du Futur de Stardom', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-      (event_id, 'Singles Match', 'Sayaka Kurara vs. Thekla')
+      (event_id, 'Sayaka Kurara vs. Thekla')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -419,7 +419,7 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-      (event_id, 'Singles Match', 'Yumiko Hotta vs. Rina')
+      (event_id, 'Yumiko Hotta vs. Rina')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -448,7 +448,7 @@ BEGIN
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Sendai Girls World Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de championne du monde Sendai Girls');
+    (match_id, 'Match pour le titre de championne du monde Sendai Girls', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
       (event_id, 'STARS vs. STARS')
@@ -456,7 +456,7 @@ BEGIN
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Goddesses Of Stardom Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de Déesses de Stardom');
+    (match_id, 'Match pour le titre de Déesses de Stardom', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
       (event_id, 'Syuri vs. Mayu Iwatani')
@@ -486,24 +486,23 @@ END $$;
 
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
-  INSERT INTO Event (name, promotion, date)
-  VALUES 
+  INSERT INTO Event (name, promotion, date) VALUES 
     ('NJPW Wrestle Kingdom 19 In Tokyo Dome', 'New Japan Pro Wrestling', '2025-01-04')
   RETURNING id INTO event_id;
 
-  INSERT INTO Match (event_id, workers) 
-  VALUES (event_id, 'Hirooki Goto vs. Alex Zayne vs. Great-O-Khan vs. Hiroyoshi Tenzan vs. Jsh Barnett vs. KENTA vs. Oleg Boltin vs. SANADA vs. Satoshi Kojima vs. Taichi vs. Togi Makabe vs. Tomoaki HOnma vs. Tomohiro Ishii vs. Toru Yano vs. YOSHI-HASHI vs. Yuji Nagata vs. Yujiro Takahashi'),
+  INSERT INTO Match (event_id, workers) VALUES 
+    (event_id, 'Hirooki Goto vs. Alex Zayne vs. Great-O-Khan vs. Hiroyoshi Tenzan vs. Jsh Barnett vs. KENTA vs. Oleg Boltin vs. SANADA vs. Satoshi Kojima vs. Taichi vs. Togi Makabe vs. Tomoaki Honma vs. Tomohiro Ishii vs. Toru Yano vs. YOSHI-HASHI vs. Yuji Nagata vs. Yujiro Takahashi')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
-    (match_id,  'Pre-Show IWGP Men''s World Heavyweight Title #1 Contendership New Japan Rambo Match', 'ENG'),
+    (match_id, 'Pre-Show IWGP Men''s World Heavyweight Title #1 Contendership New Japan Rambo Match', 'ENG'),
     (match_id, 'Bataille royale ''New Japan Rambo'' d''avant-spectacle pour une chance pour le titre de champion IWGP', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Ichiban Sweet Boys vs. Intergalactic Jet Setters vs. BULLET CLUB War Dogs vs. Catch 22'),
+    (event_id, 'Ichiban Sweet Boys vs. Intergalactic Jet Setters vs. BULLET CLUB War Dogs vs. Catch 22')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -511,7 +510,7 @@ BEGIN
     (match_id, 'Match à échelles pour le titre de champion IWGP junior en équipe', 'FRE');
  
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Mayu Iwatani vs. AZM'),
+    (event_id, 'Mayu Iwatani vs. AZM')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -519,15 +518,15 @@ BEGIN
     (match_id, 'Match pour le titre de championne IWGP', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'El Phantasmo vs. Ren Narita vs. Jeff Cobb vs. Ryohei Oiwa'),
+    (event_id, 'El Phantasmo vs. Ren Narita vs. Jeff Cobb vs. Ryohei Oiwa')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
-    (event_id, 'NJPW World Television Title Four Way Match', 'ENG'),
-    (event_id, 'Match à 4 pour le titre de champion IWGP télévision', 'FRE');
+    (match_id, 'NJPW World Television Title Four Way Match', 'ENG'),
+    (match_id, 'Match à 4 pour le titre de champion IWGP télévision', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Hiroshi Tanahashi vs. EVIL'),
+    (event_id, 'Hiroshi Tanahashi vs. EVIL')
   RETURNING id INTO match_id;
  
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -535,7 +534,7 @@ BEGIN
     (match_id, 'Match de bûcheron', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Konosuke Takeshita vs. Shingo Takagi'),
+    (event_id, 'Konosuke Takeshita vs. Shingo Takagi')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
@@ -543,7 +542,7 @@ BEGIN
     (match_id, 'Match pour les titres de champion international AEW et NEVER Openweight', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'El Desperado vs. DOUKI'),
+    (event_id, 'El Desperado vs. DOUKI')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -551,15 +550,15 @@ BEGIN
     (match_id, 'Match pour le titre de champion poids-lourd junior IWGP', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Yota Tsuji vs. David Finlay'),
+    (event_id, 'Yota Tsuji vs. David Finlay')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'IWGP Men''s Global Heavyweight Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de champion poids-lourd global IWGP');
+    (match_id, 'Match pour le titre de champion poids-lourd global IWGP', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Singles Match', 'Tetsuya Naito vs. Hiromu Takahashi', 'FRE'),
+    (event_id, 'Tetsuya Naito vs. Hiromu Takahashi')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -567,18 +566,18 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Zack Sabre Jr. vs. Shota Umino');
+    (event_id, 'Zack Sabre Jr. vs. Shota Umino')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'IWGP Men''s World Heavyweight Title Match', 'ENG'),
-    (match_id, 'Match pour le titre de champion du monde poids-lourd IWGP', 'FRE')
+    (match_id, 'Match pour le titre de champion du monde poids-lourd IWGP', 'FRE');
   
 END $$;
 
 DO $$
 DECLARE 
-  event_id INTEGER,
+  event_id INTEGER;
   match_id INTEGER;
 BEGIN
   INSERT INTO Event (name, promotion, date)
@@ -587,7 +586,7 @@ BEGIN
   RETURNING id INTO event_id;
 
   INSERT INTO Match (event_id, workers) VALUES
-  VALUES (event_id, 'Kuro vs. Connor Mills')
+    (event_id, 'Kuro vs. Connor Mills')
   RETURNING id INTO match_id;
  
   INSERT into Match_Desc (match_id, description, language_code) VALUES
@@ -595,7 +594,7 @@ BEGIN
     (match_id, 'Match pour le titre de champion APC', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Singles Match', 'Megan Bayne vs. Celine')
+    (event_id, 'Megan Bayne vs. Celine')
   RETURNING id INTO match_id;
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
@@ -611,7 +610,7 @@ BEGIN
     (match_id, 'Match simple', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
-    (event_id, 'Georges Balzac vs. Griff vs. Jack Sans-Nom vs. Ravage'),
+    (event_id, 'Georges Balzac vs. Griff vs. Jack Sans-Nom vs. Ravage')
   RETURNING id INTO match_id;
 
   INSERT into Match_Desc (match_id, description, language_code) VALUES
@@ -619,12 +618,12 @@ BEGIN
     (match_id, 'Match à 4 pour le titre de champion hardcore BZW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES 
-    (event_id, 'Rivality vs. Idolatry vs. Suplex Republik vs. Cian Noonan, LJ Clearly'),
+    (event_id, 'Rivality vs. Idolatry vs. Suplex Republik vs. Cian Noonan, LJ Clearly')
   RETURNING id INTO match_id;    
 
   INSERT into Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'APC Men''s Tag Team Title / CZW Men''s Tag Team Title Four Way Match', 'ENG'),
-    (match_id, 'Match pour les titres de champion en équipe APC et BZW');
+    (match_id, 'Match pour les titres de champion en équipe APC et BZW', 'FRE');
 
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Joseph Fenech Jr. vs. Cara Noir')
@@ -641,5 +640,4 @@ BEGIN
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'Three Way Match', 'ENG'),
     (match_id, 'Match à trois', 'FRE');
-
 END $$;
