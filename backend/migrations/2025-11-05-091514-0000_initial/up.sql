@@ -13,7 +13,6 @@ CREATE TABLE Match
 (
   id SERIAL,
   event_id INTEGER,
-  type VARCHAR(128) NOT NULL,
   workers TEXT NOT NULL,
   CONSTRAINT PK_Match 
     PRIMARY KEY (id),

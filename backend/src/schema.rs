@@ -23,9 +23,6 @@ diesel::table! {
     match_ (id) {
         id -> Int4,
         event_id -> Nullable<Int4>,
-        #[sql_name = "type"]
-        #[max_length = 128]
-        type_ -> Varchar,
         workers -> Text,
     }
 }
