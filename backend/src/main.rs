@@ -1,5 +1,10 @@
 use rocket::{launch, routes};
 
+use crate::{
+    database::{Database, ManageDatabaseConnection},
+    endpoints::{get_event_matches, get_events},
+};
+
 pub mod database;
 pub mod endpoints;
 pub mod entities;
@@ -7,7 +12,17 @@ pub mod errors;
 pub mod pagination;
 pub mod schema;
 
+pub struct AppState {
+    database: Database,
+}
+
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![])
+    let state = AppState {
+        database: Database::new(),
+    };
+
+    rocket::build()
+        .mount("/", routes![get_events, get_event_matches])
+        .manage(state)
 }

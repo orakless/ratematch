@@ -6,7 +6,6 @@ use dotenvy::dotenv;
 use std::env;
 
 use crate::{
-    endpoints::PageParameters,
     entities::{Event, Language, Match, MatchDesc, NewRating, Rating},
     errors::Error,
     pagination::{Page, Paginate},
@@ -43,28 +42,26 @@ impl ManageDatabaseConnection for Database {
     }
 }
 
+const ITEMS_PER_PAGE: i64 = 4;
+
 pub trait DatabaseOperations {
-    fn get_events(&self, page_parameters: PageParameters) -> Result<Page<Event>, Error>;
+    fn get_events(&self, page: i64) -> Result<Page<Event>, Error>;
     fn get_event_by(&self, event_id: i32) -> Result<Event, Error>;
     fn get_match_by(&self, match_id: i32) -> Result<Match, Error>;
     fn get_match_description(&self, match_id: i32, language: Language) -> Result<MatchDesc, Error>;
     fn get_card(&self, event_id: i32) -> Result<Vec<Match>, Error>;
-    fn get_ratings(
-        &self,
-        match_id: i32,
-        page_parameters: PageParameters,
-    ) -> Result<Page<Rating>, Error>;
+    fn get_ratings(&self, match_id: i32, page: i64) -> Result<Page<Rating>, Error>;
     fn new_rating(&self, rating: NewRating) -> Result<(), Error>;
 }
 
 impl DatabaseOperations for Database {
-    fn get_events(&self, page_parameters: PageParameters) -> Result<Page<Event>, Error> {
+    fn get_events(&self, page: i64) -> Result<Page<Event>, Error> {
         let mut connection = self.get_connection()?;
 
         match event::table
             .order_by(event::date)
-            .paginate(page_parameters.page())
-            .per_page(page_parameters.per_page())
+            .paginate(page)
+            .per_page(ITEMS_PER_PAGE)
             .load_and_count_pages::<Event>(&mut connection)
         {
             Ok(page) => Ok(page),
@@ -121,17 +118,13 @@ impl DatabaseOperations for Database {
         }
     }
 
-    fn get_ratings(
-        &self,
-        match_id: i32,
-        page_parameters: PageParameters,
-    ) -> Result<Page<Rating>, Error> {
+    fn get_ratings(&self, match_id: i32, page: i64) -> Result<Page<Rating>, Error> {
         let mut connection = self.get_connection()?;
 
         match rating::table
             .filter(rating::match_id.eq(match_id))
-            .paginate(page_parameters.page())
-            .per_page(page_parameters.per_page())
+            .paginate(page)
+            .per_page(ITEMS_PER_PAGE)
             .load_and_count_pages::<Rating>(&mut connection)
         {
             Ok(page) => Ok(page),

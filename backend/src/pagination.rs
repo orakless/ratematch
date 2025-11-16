@@ -5,6 +5,7 @@ use diesel::prelude::*;
 use diesel::query_builder::*;
 use diesel::query_dsl::methods::LoadQuery;
 use diesel::sql_types::BigInt;
+use serde::Serialize;
 
 pub trait Paginate: Sized {
     fn paginate(self, page: i64) -> Paginated<Self>;
@@ -24,9 +25,10 @@ impl<T> Paginate for T {
 const DEFAULT_PER_PAGE: i64 = 10;
 
 // intended for user display
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Page<T> {
     pub page: i64,
+    pub page_total: i64,
     pub items: Vec<T>,
 }
 
@@ -52,13 +54,15 @@ impl<T> Paginated<T> {
         Self: LoadQuery<'a, PgConnection, (U, i64)>,
     {
         let per_page = self.per_page;
+        let page = self.page;
         let results = self.load::<(U, i64)>(conn)?;
         let total = results.first().map(|x| x.1).unwrap_or(0);
-        let records = results.into_iter().map(|x| x.0).collect();
-        let total_pages = (total as f64 / per_page as f64).ceil() as i64;
+        let items = results.into_iter().map(|x| x.0).collect();
+        let page_total = (total as f64 / per_page as f64).ceil() as i64;
         Ok(Page {
-            page: total_pages,
-            items: records,
+            page,
+            page_total,
+            items,
         })
     }
 }

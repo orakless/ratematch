@@ -8,13 +8,16 @@ use diesel::{
     serialize::ToSql,
     sql_types::VarChar,
 };
+use serde::{Deserialize, Serialize};
 
 use crate::schema::{event, match_, match_desc, rating};
 
-#[derive(AsExpression, Clone, Debug, Copy, FromSqlRow)]
+#[derive(AsExpression, Serialize, Deserialize, Clone, Debug, Copy, FromSqlRow)]
 #[diesel(sql_type = VarChar)]
 pub enum Language {
+    #[serde(rename = "FRE")]
     French,
+    #[serde(rename = "ENG")]
     English,
 }
 
@@ -169,8 +172,6 @@ impl Rating {
 
 // Struct without ID, this way it will be possible to
 // insert new ratings in the database
-#[derive(Insertable)]
-#[diesel(table_name = rating)]
 pub struct NewRating {
     match_id: i32,
     language_code: Language,
