@@ -1,10 +1,10 @@
 use rocket::{launch, routes};
 
+use crate::endpoints::{add_match_rating, get_match_desc};
 use crate::{
     database::{Database, ManageDatabaseConnection},
-    endpoints::{get_event_matches, get_events},
+    endpoints::{get_event_matches, get_events, get_match_ratings},
 };
-use crate::endpoints::get_match_desc;
 
 pub mod database;
 pub mod endpoints;
@@ -24,6 +24,15 @@ fn rocket() -> _ {
     };
 
     rocket::build()
-        .mount("/", routes![get_events, get_event_matches, get_match_desc])
+        .mount(
+            "/",
+            routes![
+                get_events,
+                get_event_matches,
+                get_match_desc,
+                get_match_ratings,
+                add_match_rating,
+            ],
+        )
         .manage(state)
 }

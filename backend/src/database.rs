@@ -1,3 +1,4 @@
+use bigdecimal::{BigDecimal, FromPrimitive};
 use diesel::{
     prelude::*,
     r2d2::{ConnectionManager, Pool, PooledConnection},
@@ -43,6 +44,7 @@ impl ManageDatabaseConnection for Database {
 }
 
 const ITEMS_PER_PAGE: i64 = 4;
+const MAX_RATING: i64 = 5;
 
 pub trait DatabaseOperations {
     fn get_events(&self, page: i64) -> Result<Page<Event>, Error>;
@@ -50,7 +52,12 @@ pub trait DatabaseOperations {
     fn get_match_by(&self, match_id: i32) -> Result<Match, Error>;
     fn get_match_description(&self, match_id: i32, language: Language) -> Result<MatchDesc, Error>;
     fn get_card(&self, event_id: i32) -> Result<Vec<Match>, Error>;
-    fn get_ratings(&self, match_id: i32, page: i64) -> Result<Page<Rating>, Error>;
+    fn get_ratings(
+        &self,
+        match_id: i32,
+        page: i64,
+        language: Language,
+    ) -> Result<Page<Rating>, Error>;
     fn new_rating(&self, rating: NewRating) -> Result<(), Error>;
 }
 
@@ -97,7 +104,7 @@ impl DatabaseOperations for Database {
         let mut connection = self.get_connection()?;
 
         match match_desc::table
-            .filter(match_desc::id.eq(match_id))
+            .filter(match_desc::match_id.eq(match_id))
             .filter(match_desc::language_code.eq(language))
             .first::<MatchDesc>(&mut connection)
         {
@@ -118,11 +125,17 @@ impl DatabaseOperations for Database {
         }
     }
 
-    fn get_ratings(&self, match_id: i32, page: i64) -> Result<Page<Rating>, Error> {
+    fn get_ratings(
+        &self,
+        match_id: i32,
+        page: i64,
+        language: Language,
+    ) -> Result<Page<Rating>, Error> {
         let mut connection = self.get_connection()?;
 
         match rating::table
             .filter(rating::match_id.eq(match_id))
+            .filter(rating::language_code.eq(language))
             .paginate(page)
             .per_page(ITEMS_PER_PAGE)
             .load_and_count_pages::<Rating>(&mut connection)
@@ -134,6 +147,7 @@ impl DatabaseOperations for Database {
 
     fn new_rating(&self, rating: NewRating) -> Result<(), Error> {
         let mut connection = self.get_connection()?;
+
         rating.insert_into(rating::table).execute(&mut connection)?;
         Ok(())
     }

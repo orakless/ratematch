@@ -9,12 +9,14 @@ use diesel::{
     sql_types::VarChar,
 };
 use rocket::FromFormField;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
 use crate::schema::{event, match_, match_desc, rating};
 
 // based on ISO 3 letter representation of languages for DB and API representation
-#[derive(AsExpression, Serialize, Clone, Debug, Copy, PartialEq, FromSqlRow, FromFormField)]
+#[derive(
+    AsExpression, Serialize, Deserialize, Clone, Debug, Copy, PartialEq, FromSqlRow, FromFormField,
+)]
 #[diesel(sql_type = VarChar)]
 pub enum Language {
     #[serde(rename = "FRE")]
@@ -178,12 +180,12 @@ impl Rating {
 
 // Struct without ID, this way it will be possible to
 // insert new ratings in the database
-#[derive(Insertable)]
+#[derive(Insertable, Deserialize)]
 #[diesel(table_name = rating)]
 pub struct NewRating {
-    match_id: i32,
-    language_code: Language,
-    username: String,
-    score: BigDecimal,
-    opinion: Option<String>,
+    pub match_id: i32,
+    pub language_code: Language,
+    pub username: String,
+    pub score: BigDecimal,
+    pub opinion: Option<String>,
 }
