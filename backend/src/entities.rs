@@ -8,16 +8,22 @@ use diesel::{
     serialize::ToSql,
     sql_types::VarChar,
 };
-use serde::{Deserialize, Serialize};
+use rocket::FromFormField;
+use serde::Serialize;
 
 use crate::schema::{event, match_, match_desc, rating};
 
-#[derive(AsExpression, Serialize, Deserialize, Clone, Debug, Copy, FromSqlRow)]
+// based on ISO 3 letter representation of languages for DB and API representation
+#[derive(AsExpression, Serialize, Clone, Debug, Copy, PartialEq, FromSqlRow, FromFormField)]
 #[diesel(sql_type = VarChar)]
 pub enum Language {
     #[serde(rename = "FRE")]
+    // to have the same output as input
+    #[field(value = "FRE")]
     French,
     #[serde(rename = "ENG")]
+    // to have the same output as input
+    #[field(value = "ENG")]
     English,
 }
 
@@ -54,7 +60,7 @@ where
     }
 }
 
-#[derive(Insertable, Queryable)]
+#[derive(Insertable, Queryable, Serialize, Clone)]
 #[diesel(table_name = event)]
 pub struct Event {
     id: i32,
@@ -63,7 +69,7 @@ pub struct Event {
     date: NaiveDate,
 }
 
-#[derive(Insertable, Queryable)]
+#[derive(Insertable, Queryable, Serialize, Clone)]
 #[diesel(table_name = match_)]
 #[diesel(belongs_to(Event, foreign_key = event_id))]
 pub struct Match {
@@ -72,7 +78,7 @@ pub struct Match {
     workers: String,
 }
 
-#[derive(Insertable, Queryable)]
+#[derive(Insertable, Queryable, Serialize, Clone)]
 #[diesel(table_name = match_desc)]
 #[diesel(belongs_to(Match, foreign_key = match_id))]
 pub struct MatchDesc {
@@ -82,7 +88,7 @@ pub struct MatchDesc {
     language_code: Language,
 }
 
-#[derive(Insertable, Queryable)]
+#[derive(Insertable, Queryable, Serialize, Clone)]
 #[diesel(table_name = rating)]
 #[diesel(belongs_to(Match, foreign_key = match_id))]
 pub struct Rating {
@@ -172,6 +178,8 @@ impl Rating {
 
 // Struct without ID, this way it will be possible to
 // insert new ratings in the database
+#[derive(Insertable)]
+#[diesel(table_name = rating)]
 pub struct NewRating {
     match_id: i32,
     language_code: Language,
