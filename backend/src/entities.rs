@@ -1,5 +1,5 @@
 use bigdecimal::BigDecimal;
-use chrono::NaiveDate;
+use chrono::{NaiveDate, NaiveDateTime};
 use diesel::{
     backend::Backend,
     deserialize::{self, FromSql, FromSqlRow},
@@ -99,6 +99,7 @@ pub struct Rating {
     language_code: Language,
     username: String,
     score: BigDecimal,
+    publication_date: NaiveDateTime,
     opinion: Option<String>,
 }
 
@@ -176,6 +177,10 @@ impl Rating {
     pub fn opinion(&self) -> &Option<String> {
         &self.opinion
     }
+
+    pub fn publication_date(&self) -> &NaiveDateTime {
+        &self.publication_date
+    }
 }
 
 // Struct without ID, this way it will be possible to
@@ -187,5 +192,6 @@ pub struct NewRating {
     pub language_code: Language,
     pub username: String,
     pub score: BigDecimal,
+    pub publication_date: NaiveDateTime,
     pub opinion: Option<String>,
 }

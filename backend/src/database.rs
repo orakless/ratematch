@@ -1,4 +1,3 @@
-use bigdecimal::{BigDecimal, FromPrimitive};
 use diesel::{
     prelude::*,
     r2d2::{ConnectionManager, Pool, PooledConnection},
@@ -44,7 +43,6 @@ impl ManageDatabaseConnection for Database {
 }
 
 const ITEMS_PER_PAGE: i64 = 4;
-const MAX_RATING: i64 = 5;
 
 pub trait DatabaseOperations {
     fn get_events(&self, page: i64) -> Result<Page<Event>, Error>;
@@ -52,7 +50,8 @@ pub trait DatabaseOperations {
     fn get_match_by(&self, match_id: i32) -> Result<Match, Error>;
     fn get_match_description(&self, match_id: i32, language: Language) -> Result<MatchDesc, Error>;
     fn get_card(&self, event_id: i32) -> Result<Vec<Match>, Error>;
-    fn get_ratings(
+    fn get_ratings(&self, page: i64, language: Language) -> Result<Page<Rating>, Error>;
+    fn get_ratings_for_match(
         &self,
         match_id: i32,
         page: i64,
@@ -66,7 +65,7 @@ impl DatabaseOperations for Database {
         let mut connection = self.get_connection()?;
 
         match event::table
-            .order_by(event::date)
+            .order_by(event::date.desc())
             .paginate(page)
             .per_page(ITEMS_PER_PAGE)
             .load_and_count_pages::<Event>(&mut connection)
@@ -84,7 +83,7 @@ impl DatabaseOperations for Database {
             .first::<Event>(&mut connection)
         {
             Ok(event) => Ok(event),
-            Err(_) => Err(Error::ResourceDoesNotExists),
+            Err(err) => Err(err.into()),
         }
     }
 
@@ -96,7 +95,7 @@ impl DatabaseOperations for Database {
             .first::<Match>(&mut connection)
         {
             Ok(match_obj) => Ok(match_obj),
-            Err(_) => Err(Error::ResourceDoesNotExists),
+            Err(err) => Err(err.into()),
         }
     }
 
@@ -109,7 +108,7 @@ impl DatabaseOperations for Database {
             .first::<MatchDesc>(&mut connection)
         {
             Ok(matchdesc) => Ok(matchdesc),
-            Err(_) => Err(Error::ResourceDoesNotExists),
+            Err(err) => Err(err.into()),
         }
     }
 
@@ -125,7 +124,21 @@ impl DatabaseOperations for Database {
         }
     }
 
-    fn get_ratings(
+    fn get_ratings(&self, page: i64, language: Language) -> Result<Page<Rating>, Error> {
+        let mut connection = self.get_connection()?;
+
+        match rating::table
+            .filter(rating::language_code.eq(language))
+            .paginate(page)
+            .per_page(ITEMS_PER_PAGE)
+            .load_and_count_pages::<Rating>(&mut connection)
+        {
+            Ok(page) => Ok(page),
+            Err(err) => Err(err.into()),
+        }
+    }
+
+    fn get_ratings_for_match(
         &self,
         match_id: i32,
         page: i64,

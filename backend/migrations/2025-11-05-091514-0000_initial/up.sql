@@ -50,6 +50,7 @@ CREATE TABLE Rating
   language_code CHAR(3) NOT NULL,
   username VARCHAR(32) NOT NULL,
   score NUMERIC(3, 1) NOT NULL,
+  publication_date TIMESTAMP NOT NULL,
   opinion TEXT,
   CONSTRAINT PK_Rating
     PRIMARY KEY (id),

@@ -46,6 +46,7 @@ diesel::table! {
         #[max_length = 32]
         username -> Varchar,
         score -> Numeric,
+        publication_date -> Timestamp,
         opinion -> Nullable<Text>,
     }
 }
