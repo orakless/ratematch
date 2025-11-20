@@ -13,7 +13,7 @@ use serde::{Deserialize, Serialize};
 
 use crate::schema::{event, match_, match_desc, rating};
 
-// based on ISO 3 letter representation of languages for DB and API representation
+/// based on ISO 3 letter representation of languages for DB and API representation
 #[derive(
     AsExpression, Serialize, Deserialize, Clone, Debug, Copy, PartialEq, FromSqlRow, FromFormField,
 )]
@@ -29,7 +29,7 @@ pub enum Language {
     English,
 }
 
-// Implement conversion from DB types (string literals) into Language enum
+/// Implement conversion from DB types (string literals) into Language enum
 impl<DB> FromSql<VarChar, DB> for Language
 where
     DB: Backend,
@@ -45,7 +45,7 @@ where
     }
 }
 
-// Implement conversion from Language enum to DB type for inserting new matches or ratings
+/// Implement conversion from Language enum to DB type for inserting new matches or ratings
 impl<DB> ToSql<VarChar, DB> for Language
 where
     DB: Backend,

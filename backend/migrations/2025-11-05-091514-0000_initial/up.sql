@@ -253,6 +253,11 @@ BEGIN
     (event_id, 'Kyle Fletcher vs. Hiromu Takahashi')
   RETURNING id INTO match_id;
 
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 5.0, '2025-10-05 15:45', 'Super match!'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-11-05 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 4.5, '2025-08-16 16:00', 'Great match between two talents with great synergy.');
+
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'AEW TNT Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion AEW TNT', 'FRE');
@@ -264,6 +269,11 @@ BEGIN
   INSERT INTO Match_Desc(match_id, description, language_code) VALUES 
     (match_id, 'AEW TBS Title Four Way Match', 'ENG'),
     (match_id, 'Match à 4 pour le titre de championne AEW TBS', 'FRE');
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 2.0, '2025-09-05 15:45', 'Moyen...'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-11-25 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 3.5, '2025-08-16 16:00', 'Great match between two talents with great synergy.');
 
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Zack Sabre Jr. vs. Nigel McGuinness')
@@ -284,6 +294,11 @@ BEGIN
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Kazuchika Okada vs. Swerve Strickland')
   RETURNING id INTO match_id;
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 2.0, '2025-09-05 15:45', 'Moyen...'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-11-25 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 3.5, '2025-08-16 16:00', 'Great match between two talents with great synergy.');
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'AEW Unified Title / AEW Continental Title / AEW International Title Match', 'ENG'),
@@ -327,7 +342,12 @@ BEGIN
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'Jey Uso vs. Gunther')
   RETURNING id INTO match_id;
- 
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 2.0, '2025-04-26 15:45', 'Moyen...'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-05-25 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 1.0, '2025-04-20 16:00', 'Weird ending.');
+
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'WWE Men''s World Heavyweight Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion du monde poids-lourd WWE', 'FRE');
@@ -355,6 +375,11 @@ BEGIN
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'WWE Men''s United States Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion des États-Unis d''Amérique WWE', 'FRE');
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 2.0, '2025-04-26 15:45', 'Moyen...'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-05-25 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 1.0, '2025-04-20 16:00', 'Weird ending.');
 
   INSERT INTO Match (event_id, workers) VALUES
     (event_id, 'El Grande Americano vs. Rey Fenix')
@@ -447,6 +472,11 @@ BEGIN
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES 
     (match_id, 'Undisputed WWE Men''s Title Match', 'ENG'),
     (match_id, 'Match pour le titre de champion WWE indisputé', 'FRE');
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'fan2catch4891', 2.0, '2025-04-26 15:45', 'Moyen...'),
+    (match_id, 'FRE', 'eva', 5.0, '2025-05-25 11:45', 'J''adore Kyle Fletcher!'),
+    (match_id, 'ENG', 'davemeltzer', 0.5, '2025-04-21 16:00', 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas. Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos..');
 END $$;
     
 DO $$
@@ -541,6 +571,12 @@ BEGIN
   INSERT INTO Match (event_id, workers) VALUES
       (event_id, 'Saya Kamitani vs. Tam Nakano')
   RETURNING id INTO match_id;
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date, opinion) VALUES
+    (match_id, 'FRE', 'eva', 5.0, '2025-04-26 15:45', 'Meilleur match de l''année');
+
+  INSERT INTO Rating (match_id, language_code, username, score, publication_date) VALUES
+    (match_id, 'ENG', 'davemeltzer', 5.0, '2025-05-25 11:45');
 
   INSERT INTO Match_Desc (match_id, description, language_code) VALUES
     (match_id, 'World of Stardom Title Career Vs. Career Match', 'ENG'),

@@ -1,11 +1,13 @@
 use diesel::r2d2;
 
+#[derive(Debug)]
 pub enum Error {
     UsernameAlreadyUsed,
     ResourceDoesNotExists,
     WrongRating,
     Diesel { e: String },
     R2D2 { e: String },
+    INEEDTOLOG { e: String },
 }
 
 impl From<diesel::result::Error> for Error {

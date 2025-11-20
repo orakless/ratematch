@@ -11,6 +11,8 @@ pub trait Paginate: Sized {
     fn paginate(self, page: i64) -> Paginated<Self>;
 }
 
+const DEFAULT_PER_PAGE: i64 = 10;
+
 impl<T> Paginate for T {
     fn paginate(self, page: i64) -> Paginated<Self> {
         Paginated {
@@ -21,8 +23,6 @@ impl<T> Paginate for T {
         }
     }
 }
-
-const DEFAULT_PER_PAGE: i64 = 10;
 
 // intended for user display
 #[derive(Debug, Clone, Serialize)]

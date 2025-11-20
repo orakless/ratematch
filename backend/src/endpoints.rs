@@ -10,6 +10,14 @@ use rocket::{State, get, http::Status, post, response::status::NotFound, serde::
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize)]
+pub struct ApiResponseWithBigDecimal {
+    message: String,
+    // Necessary to return the number as an actual number and not a string
+    #[serde(with = "bigdecimal::serde::json_num")]
+    data: BigDecimal,
+}
+
+#[derive(Serialize)]
 pub struct ApiResponseWithData<T> {
     message: String,
     data: T,
@@ -29,6 +37,9 @@ pub struct RequestRating {
     pub opinion: Option<String>,
 }
 
+/// We convert the request-made rating to a Database-compliant NewRating. We're doing the time of
+/// publication server-side so there isn't any cheater who put a date way before or way after the
+/// actual publication date.
 impl From<RequestRating> for NewRating {
     fn from(value: RequestRating) -> Self {
         NewRating {
@@ -50,7 +61,7 @@ pub fn get_events(
     match state.database.get_events(page) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
         })),
         Err(_) => Err(NotFound("No ressources".to_string())),
     }
@@ -64,7 +75,7 @@ pub fn get_event(
     match state.database.get_event_by(event_id) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
         })),
         Err(_) => Err((
             Status::UnprocessableEntity,
@@ -83,7 +94,7 @@ pub fn get_event_matches(
     match state.database.get_card(event_id) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
         })),
         Err(_) => Err((
             Status::UnprocessableEntity,
@@ -102,7 +113,7 @@ pub fn get_match(
     match state.database.get_match_by(match_id) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
         })),
         Err(_) => Err((
             Status::UnprocessableEntity,
@@ -122,7 +133,28 @@ pub fn get_match_desc(
     match state.database.get_match_description(match_id, lang) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
+        })),
+        Err(_) => Err((
+            Status::UnprocessableEntity,
+            Json(ApiResponse {
+                message: "Could not get the data.".to_string(),
+            }),
+        )),
+    }
+}
+
+#[get("/events/<event_id>/ratings?<page>&<lang>")]
+pub fn get_event_ratings(
+    state: &State<AppState>,
+    event_id: i32,
+    page: i64,
+    lang: Language,
+) -> Result<Json<ApiResponseWithData<Page<Rating>>>, (Status, Json<ApiResponse>)> {
+    match state.database.get_ratings_for_event(event_id, page, lang) {
+        Ok(data) => Ok(Json(ApiResponseWithData {
+            message: "Operation done".to_string(),
+            data,
         })),
         Err(_) => Err((
             Status::UnprocessableEntity,
@@ -163,7 +195,7 @@ pub fn get_ratings(
     match state.database.get_ratings(page, lang) {
         Ok(data) => Ok(Json(ApiResponseWithData {
             message: "Operation done".to_string(),
-            data: data,
+            data,
         })),
         Err(_) => Err((
             Status::UnprocessableEntity,
@@ -188,5 +220,59 @@ pub fn add_match_rating(
             Json(ApiResponse {
             message: "Could not add this rating. You may have already submitted a rating with this username.".to_string(),
         }))),
+    }
+}
+
+#[get("/events/<event_id>/average")]
+pub fn get_average_rating_for_event(
+    state: &State<AppState>,
+    event_id: i32,
+) -> Result<Json<ApiResponseWithBigDecimal>, (Status, Json<ApiResponse>)> {
+    match state.database.get_average_rating_for_event(event_id) {
+        Ok(score) => match score {
+            Some(data) => Ok(Json(ApiResponseWithBigDecimal {
+                message: "Operation done.".to_string(),
+                data,
+            })),
+            None => Err((
+                Status::UnprocessableEntity,
+                Json(ApiResponse {
+                    message: "This entry does not have any rating for now.".to_string(),
+                }),
+            )),
+        },
+        Err(_) => Err((
+            Status::UnprocessableEntity,
+            Json(ApiResponse {
+                message: "Could not get the data.".to_string(),
+            }),
+        )),
+    }
+}
+
+#[get("/match/<match_id>/average")]
+pub fn get_average_rating_for_match(
+    state: &State<AppState>,
+    match_id: i32,
+) -> Result<Json<ApiResponseWithBigDecimal>, (Status, Json<ApiResponse>)> {
+    match state.database.get_average_rating_for_match(match_id) {
+        Ok(score) => match score {
+            Some(data) => Ok(Json(ApiResponseWithBigDecimal {
+                message: "Operation done.".to_string(),
+                data,
+            })),
+            None => Err((
+                Status::UnprocessableEntity,
+                Json(ApiResponse {
+                    message: "This entry does not have any rating for now.".to_string(),
+                }),
+            )),
+        },
+        Err(_) => Err((
+            Status::UnprocessableEntity,
+            Json(ApiResponse {
+                message: "Could not get the data.".to_string(),
+            }),
+        )),
     }
 }
