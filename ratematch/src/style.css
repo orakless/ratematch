@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-bg-light: oklch(92.9% 0.013 255.508);
+  --color-bg-lighter: oklch(96.8% 0.007 247.896);
+  --color-main-light: oklch(21.6% 0.006 56.043);
+  --color-secondary-light: oklch(70.4% 0.04 256.788);
+  --color-bg-darker: oklch(13% 0.028 261.692);
+  --color-bg-dark: oklch(21% 0.034 264.665);
+  --color-main-dark: #FFFFFF;
+  --color-secondary-dark: oklch(37.3% 0.034 259.733);
+}
